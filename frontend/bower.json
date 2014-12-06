@@ -1,0 +1,19 @@
+{
+	"name": "Framework",
+	"version": "0.1",
+	"dependencies": {
+		"jquery" : "1.x",
+		"jquery-ui" : "latest",
+		"angular" : "latest",
+		"backbone" : "latest",
+		"modernizr" : "latest",
+		"velocity" : "latest",
+		"skrollr" : "latest",
+		"spritely" : "latest",
+		"foundation" : "latest",
+		"waypoints" : "git@github.com:imakewebthings/jquery-waypoints.git"
+	},
+	"resolutions": {
+	    "jquery": "1.x"
+	}
+}

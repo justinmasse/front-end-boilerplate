@@ -1,0 +1,15 @@
+# Include your project-specific ignores in this file
+# Read about how to use .gitignore: https://help.github.com/articles/ignoring-files
+
+**/.sass-cache/*
+.DS_store
+**/bower_components
+frontend/js/libs/bower/**/*
+public/templates/**/*
+public/js/**/*
+public/imgs/**/*
+public/css/**/*
+public/**/*.html
+frontend/js/main-combined.js
+frontend/js/main-combined.js
+frontend/sass/framework-custom/**/*

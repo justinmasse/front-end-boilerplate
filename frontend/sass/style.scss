@@ -1,0 +1,27 @@
+	/* 
+ * Author: Justin Masse
+ * Compiler: Compass
+ * Mixin Lib: Bouron
+ * Grid system: Bouron Neat
+ */
+
+//issues compiling
+
+@import "libs/normalize",
+		"libs/animations/animate",
+		"libs/mixins/mixins",
+		"partials/header",
+		"partials/footer";
+
+/* PRINT ---------------------------------------------------------------*/
+@media print {
+	@import "print";
+}
+
+$path: '../';
+
+.container{
+	width:1000px;
+	margin: 0 auto;
+	position:relative;
+}
