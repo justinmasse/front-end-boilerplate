@@ -69,6 +69,10 @@ module.exports = function(grunt) {
           src: ["foundation.css"],
           dest: 'sass/libs',
           rename: function(dest, src) {
+            // use the source directory to create the file
+            // example with your directory structure
+            //   dest = 'dev/js/'
+            //   src = 'module1/js/main.js'
             return 'sass/libs/' + src.substring(0, src.indexOf('.')) + '.scss';
           }
         },
@@ -93,7 +97,7 @@ module.exports = function(grunt) {
     concat: {
       options: {},
       scripts: {
-        src: ['js/libs/**/*.js', 'js/custom/**/*.js'],
+        src: ['js/libs/*/*/*.js', 'js/custom/**/*.js','js/libs/*.js', 'js/main.js'],
         dest: 'js/main-combined.js',
       },
       client: {
@@ -103,22 +107,22 @@ module.exports = function(grunt) {
     },
     watch: {
       scripts: {
-        files: ['js/**/*.js'],
-        tasks: ['concat:scripts, copy:scripts'],
+        files: ['js/**/*.js', 'js/*.js'],
+        tasks: ['concat:scripts', 'copy:scripts'],
         options: {
           spawn: false,
           livereload: true
         },
       },
       sass: {
-        files: ['sass/**/*.sass'],
+        files: ['sass/**/*.scss'],
         tasks: ['compass:dev'],
         options: {
           spawn: false,
           livereload: true
         },
       },
-      scripts: {
+      html: {
         files: ['**/*.html'],
         tasks: ['htmlbuild'],
         options: {
@@ -126,6 +130,14 @@ module.exports = function(grunt) {
           livereload: true
         }
       },
+      images: {
+        files: ['imgs/**/*'],
+        tasks: ['copy:images'],
+        options: {
+          spawn: false,
+          livereload: true
+        }
+      }
     },
     htmlbuild: {
         root: {
