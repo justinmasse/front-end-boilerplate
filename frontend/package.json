@@ -1,17 +1,25 @@
 {
-  "name": "my-project-name",
-  "version": "0.1.0",
+  "name": "mcd-framework",
+  "version": "0.2.0",
+  "authors": [
+    "Justin Masse <justinm@tribalworldwide.ca>",
+    "Andrew Kish <andrewk@tribalworldwide.ca>"
+  ],
+  "description": "A frontend framework for building McDonalds.ca promo pages.",
   "devDependencies": {
     "grunt": "^0.4.5",
     "grunt-bower-task": "^0.4.0",
     "grunt-contrib-clean": "^0.6.0",
     "grunt-contrib-compass": "^1.0.1",
-    "grunt-contrib-concat": "^0.5.0",
-    "grunt-contrib-copy": "^0.6.0",
+    "grunt-contrib-concat": "^0.5.1",
+    "grunt-contrib-copy": "^0.8.0",
     "grunt-contrib-nodeunit": "~0.4.1",
-    "grunt-contrib-uglify": "^0.6.0",
+    "grunt-contrib-uglify": "^0.8.0",
     "grunt-contrib-watch": "^0.6.1",
-    "grunt-html-build": "^0.3.2"
+    "grunt-html-build": "^0.4.3"
   },
-  "client": "default"
+  "client": "default",
+  "dependencies": {
+    "lodash": "^3.5.0"
+  }
 }

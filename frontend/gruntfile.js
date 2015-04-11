@@ -1,7 +1,5 @@
 module.exports = function(grunt) {
-  var p = grunt.file.readJSON('package.json');
-
-  grunt.loadNpmTasks('grunt-contrib-compass');  
+  grunt.loadNpmTasks('grunt-contrib-compass');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-copy');
@@ -15,16 +13,18 @@ module.exports = function(grunt) {
     compass: {
       dist: {
         options: {
-          sassDir: 'sass',
+          sassDir: ['sass'],
           cssDir: '../public/css',
-          outputStyle: 'compressed'
+          outputStyle: 'compressed',
+          require: 'susy'
         }
       },
       dev: {
         options: {
           sassDir: 'sass',
           cssDir: '../public/css',
-          outputStyle: 'expanded'
+          outputStyle: 'expanded',
+          require: 'susy'
         }
       }
     },
@@ -35,15 +35,15 @@ module.exports = function(grunt) {
         mangle: true
       },
       build: {
-        src: 'js/main-combined.js',
-        dest: '../public/js/main-combined.min.js'
+        src: 'js/combined/*.js',
+        dest: '../public/js/script.min.js'
       }
-    },  
+    },
     copy: {
         images: {
           expand: true,
           filter: 'isFile',
-          flatten: true,
+          flatten: false,
           cwd: 'imgs/',
           src: ['**'],
           dest: '../public/imgs/'
@@ -55,12 +55,13 @@ module.exports = function(grunt) {
         },
         scripts: {
           expand: true,
-          src: ["js/main-combined.js"],
-          dest: '../public/'
+          cwd: 'js/combined/',
+          src: ["*.js"],
+          dest: "../public/js"
         },
         client: {
           expand: true,
-          src: ["templates/<%= pkg.client %>/css/**/*","templates/<%= pkg.client %>/imgs/**/*","templates/<%= pkg.client %>/js/**/*" ],
+          src: ["templates/<%= pkg.client %>/css/**/*","templates/<%= pkg.client %>/imgs/**/*","templates/<%= pkg.client %>/js/**/*","templates/<%= pkg.client %>/images/**/*" ],
           dest: '../public/'
         },
         libFoundation:{
@@ -69,10 +70,6 @@ module.exports = function(grunt) {
           src: ["foundation.css"],
           dest: 'sass/libs',
           rename: function(dest, src) {
-            // use the source directory to create the file
-            // example with your directory structure
-            //   dest = 'dev/js/'
-            //   src = 'module1/js/main.js'
             return 'sass/libs/' + src.substring(0, src.indexOf('.')) + '.scss';
           }
         },
@@ -87,7 +84,7 @@ module.exports = function(grunt) {
       install: {},
       options: {
          install: true,
-         targetDir: "js/libs/bower",
+         targetDir: "js/global/libs/bower",
          cleanBowerDir: true,
          layout: 'byType',
          verbose : true,
@@ -96,10 +93,11 @@ module.exports = function(grunt) {
     },
     concat: {
       options: {},
-      scripts: {
-        src: ['js/libs/*/*/*.js', 'js/custom/**/*.js','js/libs/*.js', 'js/main.js'],
-        dest: 'js/main-combined.js',
+      scriptsGlobal: {
+        src: ['js/global/libs/*/*/*.js', 'js/global/**/*.js','js/global/libs/*.js', 'js/global/main.js'],
+        dest: 'js/combined/global-combined.js',
       },
+      //Add more script concats here as need be
       client: {
         src: ['templates/<%= pkg.client %>/header.html','views/**/*.html','templates/<%= pkg.client %>/scripts.html',  'templates/<%= pkg.client %>/footer.html'],
         dest: '../public/index.html',
@@ -115,7 +113,7 @@ module.exports = function(grunt) {
         },
       },
       sass: {
-        files: ['sass/**/*.scss'],
+        files: ['sass/**/*.scss', 'bower_components/susy/sass/_susy.scss'],
         tasks: ['compass:dev'],
         options: {
           spawn: false,
@@ -173,7 +171,7 @@ module.exports = function(grunt) {
   // Default task(s).
   grunt.registerTask('cleaner', ['clean:init']);
   grunt.registerTask('init', ['clean:init', 'bower']);
-  grunt.registerTask('default', ['copy:clientCustomCSS','copy:libFoundation','clean:dev', 'compass:dev','concat:scripts','copy:client', 'copy:images', 'copy:fonts', 'copy:scripts', 'htmlbuild', 'watch']);
-  grunt.registerTask('build', ['copy:clientCustomCSS','copy:libFoundation','clean:build', 'compass:dist','concat:scripts','concat:client', 'copy:client','copy:images', 'copy:fonts', 'uglify', 'htmlbuild']);
+  grunt.registerTask('default', ['copy:clientCustomCSS','copy:libFoundation','clean:dev', 'compass:dev','concat', 'copy:images', 'copy:fonts', 'copy:scripts', 'htmlbuild', 'watch']);
+  grunt.registerTask('build', ['copy:clientCustomCSS','copy:libFoundation','clean:build', 'compass:dist','concat', 'copy:client','copy:images', 'copy:fonts', 'uglify', 'htmlbuild']);
 
 };

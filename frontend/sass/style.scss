@@ -1,27 +1,32 @@
-	/* 
+/*
  * Author: Justin Masse
  * Compiler: Compass
  * Mixin Lib: Bouron
  * Grid system: Bouron Neat
  */
 
-//issues compiling
+
 
 @import "libs/normalize",
-		"libs/animations/animate",
-		"libs/mixins/mixins",
-		"partials/header",
-		"partials/footer";
+        "libs/animations/animate",
+        "libs/mixins/mixins",
+        "susy",
+        "partials/header",
+        "partials/footer";
+/*
+How to use susy http://susydocs.oddbird.net/en/latest/settings/#global-defaults
+*/
+$susy: (
+  columns: 12,
+  gutters: 1/4,
+  math: fluid,
+  output: float,
+  gutter-position: inside,
+);
+/* wrap in #import_html if client mcdonalds */
 
-/* PRINT ---------------------------------------------------------------*/
-@media print {
-	@import "print";
-}
-
-$path: '../';
-
-.container{
-	width:1000px;
-	margin: 0 auto;
-	position:relative;
+*, *:before, *:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
